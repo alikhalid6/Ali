@@ -15,6 +15,7 @@ interface CartProps {
   discountDetails: DiscountCode[];
   t: any;
   language: string;
+  onCheckout: () => void;
 }
 
 const CartItemRow: React.FC<{item: CartItem; onRemove: (id: number) => void; onUpdateQuantity: (id: number, q: number) => void; t: any, language: string}> = ({ item, onRemove, onUpdateQuantity, t, language }) => (
@@ -37,7 +38,7 @@ const CartItemRow: React.FC<{item: CartItem; onRemove: (id: number) => void; onU
     </div>
 );
 
-const Cart: React.FC<CartProps> = ({ isOpen, onClose, cartItems, onRemove, onUpdateQuantity, subtotal, discount, total, onApplyDiscount, appliedCode, discountDetails, t, language }) => {
+const Cart: React.FC<CartProps> = ({ isOpen, onClose, cartItems, onRemove, onUpdateQuantity, subtotal, discount, total, onApplyDiscount, appliedCode, discountDetails, t, language, onCheckout }) => {
   const [discountInput, setDiscountInput] = useState('');
   const [error, setError] = useState('');
   
@@ -62,6 +63,14 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose, cartItems, onRemove, onUpd
 
 
   if (!isOpen) return null;
+
+  const rainbowTextStyle: React.CSSProperties = {
+    background: 'linear-gradient(to right, #ef4444, #f97316, #eab308, #22c55e, #3b82f6, #6366f1, #8b5cf6)',
+    WebkitBackgroundClip: 'text',
+    backgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    fontWeight: 'bold',
+  };
 
   return (
     <div className={`fixed inset-0 bg-black bg-opacity-50 z-50 flex ${language === 'ar' ? 'justify-end' : 'justify-start'}`} onClick={onClose}>
@@ -88,7 +97,8 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose, cartItems, onRemove, onUpd
                     placeholder={t.cartDiscountPlaceholder}
                     value={discountInput}
                     onChange={(e) => setDiscountInput(e.target.value)}
-                    className={`flex-grow border p-2 ${language === 'ar' ? 'rounded-r-md' : 'rounded-l-md'} focus:ring-brand-secondary focus:border-brand-secondary`}
+                    className={`flex-grow border bg-white p-2 ${language === 'ar' ? 'rounded-r-md' : 'rounded-l-md'} focus:ring-brand-secondary focus:border-brand-secondary`}
+                    style={discountInput ? rainbowTextStyle : {}}
                   />
                   <button onClick={handleApplyDiscount} className={`bg-brand-primary text-white px-4 ${language === 'ar' ? 'rounded-l-md' : 'rounded-r-md'} hover:bg-brand-secondary transition`}>{t.cartApply}</button>
                 </div>
@@ -101,7 +111,7 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose, cartItems, onRemove, onUpd
                     {discount > 0 && <div className="flex justify-between text-green-600"><span>{t.cartDiscount}</span><span>-{discount.toFixed(2)} {t.currency}</span></div>}
                     <div className="flex justify-between font-bold text-lg border-t pt-2 mt-2"><span>{t.cartTotal}</span><span>{total.toFixed(2)} {t.currency}</span></div>
                 </div>
-                <button className="w-full bg-brand-secondary text-white py-3 mt-6 rounded-md font-bold hover:opacity-90 transition">
+                <button onClick={onCheckout} className="w-full bg-brand-secondary text-white py-3 mt-6 rounded-md font-bold hover:opacity-90 transition">
                   {t.cartCheckout}
                 </button>
             </div>

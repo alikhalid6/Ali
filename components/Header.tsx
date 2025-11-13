@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { BAHI_LOGO_URL, OMAN_FLAG_SVG, USA_FLAG_SVG } from '../i18n';
+import type { CartItem } from '../types';
 
 interface CartIconProps {
   onClick: () => void;
@@ -28,7 +29,7 @@ const MenuIcon: React.FC<{ onClick: () => void }> = ({ onClick }) => (
 );
 
 interface HeaderProps {
-  cartItemCount: number;
+  cartItems: CartItem[];
   onCartClick: () => void;
   t: any;
   language: 'ar' | 'en';
@@ -36,9 +37,43 @@ interface HeaderProps {
   navigate: (page: string) => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ cartItemCount, onCartClick, t, language, setLanguage, navigate }) => {
+const Header: React.FC<HeaderProps> = ({ cartItems, onCartClick, t, language, setLanguage, navigate }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const [showPromo, setShowPromo] = useState(false);
+  const [promoText, setPromoText] = useState('');
+  const promoTimerRef = useRef<number | null>(null);
+  const cartItemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+
+  useEffect(() => {
+    if (promoTimerRef.current) {
+      clearTimeout(promoTimerRef.current);
+      promoTimerRef.current = null;
+    }
+    
+    let shouldShow = false;
+    if (cartItemCount >= 2) {
+      setPromoText(t.promoMessageFreeDelivery);
+      shouldShow = true;
+    } else if (cartItemCount === 1) {
+      setPromoText(t.promoMessage);
+      shouldShow = true;
+    }
+
+    setShowPromo(shouldShow);
+
+    if (shouldShow) {
+      promoTimerRef.current = window.setTimeout(() => {
+        setShowPromo(false);
+      }, 20000); // 20 seconds
+    }
+
+    return () => {
+      if (promoTimerRef.current) {
+        clearTimeout(promoTimerRef.current);
+      }
+    };
+  }, [cartItems, t, cartItemCount]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -69,12 +104,32 @@ const Header: React.FC<HeaderProps> = ({ cartItemCount, onCartClick, t, language
           </div>
           
           <nav className="flex items-center space-x-6">
-             <CartIcon onClick={onCartClick} itemCount={cartItemCount} />
+             <div className="relative group">
+                <CartIcon onClick={onCartClick} itemCount={cartItemCount} />
+                <div 
+                  className={`
+                    absolute top-1/2 -translate-y-1/2 
+                    ${language === 'en' ? 'right-full mr-3' : 'left-full ml-3'}
+                    bg-brand-secondary text-white text-xs font-bold px-3 py-1.5 rounded-md shadow-lg
+                    whitespace-nowrap transition-all duration-300 ease-out transform
+                    ${showPromo ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}
+                  `}
+                >
+                  {promoText}
+                  <div className={`absolute top-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-brand-secondary rotate-45 ${language === 'en' ? '-right-1' : '-left-1'} -z-10`}></div>
+                </div>
+                 <span className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs whitespace-nowrap px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                    {t.cartTooltip}
+                 </span>
+             </div>
              <div className="relative" ref={menuRef}>
                 <MenuIcon onClick={() => setIsMenuOpen(v => !v)} />
                 {isMenuOpen && (
                     <div className={`absolute ${language === 'ar' ? 'left-0' : 'right-0'} mt-2 w-56 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 py-1`}>
                         <a onClick={() => handleNavigate('home')} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">{t.menuHome}</a>
+                        <a onClick={() => handleNavigate('wishlist')} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">{t.menuWishlist}</a>
+                        <a onClick={() => handleNavigate('orderHistory')} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">{t.menuMyOrders}</a>
+                        <a onClick={() => handleNavigate('feedback')} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">{t.menuFeedback}</a>
                         <a onClick={() => handleNavigate('about')} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">{t.menuAbout}</a>
                         <a onClick={() => handleNavigate('contact')} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">{t.menuContact}</a>
                         <div className="border-t my-1"></div>

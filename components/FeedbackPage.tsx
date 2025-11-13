@@ -25,12 +25,12 @@ const countries: Country[] = [
   { name: 'الكويت', en_name: 'Kuwait', code: '+965', flag: KUWAIT_FLAG_SVG },
 ];
 
-interface ContactProps {
+interface FeedbackPageProps {
   t: any;
   language: 'ar' | 'en';
 }
 
-const Contact: React.FC<ContactProps> = ({ t, language }) => {
+const FeedbackPage: React.FC<FeedbackPageProps> = ({ t, language }) => {
   const inputStyles = "w-full p-3 bg-brand-surface text-brand-text border border-gray-300 rounded-md focus:ring-2 focus:ring-brand-secondary focus:border-transparent outline-none transition";
   const labelStyles = "block text-sm font-medium text-gray-700 mb-1";
 
@@ -54,19 +54,18 @@ const Contact: React.FC<ContactProps> = ({ t, language }) => {
         <div className="max-w-2xl mx-auto bg-brand-surface p-8 rounded-xl shadow-lg">
           <div className="text-center mb-8">
             <img src={BAHI_LOGO_URL} alt="Bahi Logo" className="h-24 w-24 rounded-full object-cover border-4 border-brand-accent mx-auto mb-4"/>
-            <h1 className="text-3xl font-bold text-brand-primary">{t.contactTitle}</h1>
-            <p className="text-md text-gray-500 mt-2">{t.contactSubtitle}</p>
+            <h1 className="text-3xl font-bold text-brand-primary">{t.feedbackTitle}</h1>
+            <p className="text-md text-gray-500 mt-2">{t.feedbackSubtitle}</p>
           </div>
           <form onSubmit={(e) => e.preventDefault()} className="space-y-6">
             <div>
-                <label htmlFor="name" className={labelStyles}>{t.contactName}</label>
-                <input type="text" id="name" className={inputStyles} />
+                <label htmlFor="name" className={labelStyles}>{t.feedbackName}</label>
+                <input type="text" id="name" className={inputStyles} required />
             </div>
             
             <div>
-              <label htmlFor="phone" className={labelStyles}>{t.contactPhone}</label>
+              <label htmlFor="phone" className={labelStyles}>{t.feedbackPhone}</label>
               <div className="relative flex items-center w-full border border-gray-300 rounded-md focus-within:ring-2 focus-within:ring-brand-secondary focus-within:border-transparent transition">
-                {/* Country selector dropdown */}
                 <div ref={dropdownRef} className="relative">
                   <button 
                     type="button" 
@@ -103,7 +102,6 @@ const Contact: React.FC<ContactProps> = ({ t, language }) => {
                   )}
                 </div>
 
-                {/* Phone number input */}
                 <div className="flex-grow flex items-center">
                    <span className={`pl-3 text-brand-text ${language === 'ar' ? 'border-r' : 'border-l'} border-gray-300`}>{selectedCountry.code}</span>
                    <input 
@@ -116,20 +114,16 @@ const Contact: React.FC<ContactProps> = ({ t, language }) => {
               </div>
             </div>
 
-             <div>
-                <label htmlFor="email" className={labelStyles}>{t.contactEmail}</label>
-                <input type="email" id="email" className={inputStyles} />
-            </div>
             <div>
-                <label htmlFor="message" className={labelStyles}>{t.contactMessage}</label>
-                <textarea id="message" rows={5} className={inputStyles}></textarea>
+                <label htmlFor="message" className={labelStyles}>{t.feedbackMessage}</label>
+                <textarea id="message" rows={6} className={inputStyles} required></textarea>
             </div>
             <div>
                 <button 
                   type="submit"
                   className="w-full bg-brand-primary text-white py-3 px-4 rounded-md hover:bg-brand-secondary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-brand-secondary focus:ring-opacity-50 font-bold"
                 >
-                  {t.contactSend}
+                  {t.feedbackSend}
                 </button>
             </div>
           </form>
@@ -139,4 +133,4 @@ const Contact: React.FC<ContactProps> = ({ t, language }) => {
   );
 };
 
-export default Contact;
+export default FeedbackPage;
