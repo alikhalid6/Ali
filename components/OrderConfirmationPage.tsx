@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Order } from '../types';
+import { WHATSAPP_SVG } from '../i18n';
 
 interface OrderConfirmationPageProps {
   order: Order;
@@ -81,7 +82,7 @@ const OrderConfirmationPage: React.FC<OrderConfirmationPageProps> = ({ order, t,
                 <div>
                     <span className="block text-gray-500 uppercase tracking-wider">{t.checkoutPaymentMethod}</span>
                     <span className="font-bold text-brand-text">
-                      {order.paymentMethod === 'card' ? t.paymentMethodCard : t.paymentMethodApplePay}
+                       {order.paymentMethod === 'bankTransfer' ? t.paymentMethodBankTransfer : order.paymentMethod}
                     </span>
                 </div>
             </div>
@@ -121,10 +122,17 @@ const OrderConfirmationPage: React.FC<OrderConfirmationPageProps> = ({ order, t,
                 <span>{(order.total + order.shippingCost).toFixed(2)} {t.currency}</span>
                 </div>
             </div>
-             <div className="mt-8 text-center">
+             <div className="mt-8 text-center space-y-4">
+                <button
+                    onClick={() => window.open('https://wa.me/96876971995', '_blank')}
+                    className="w-full sm:w-auto bg-[#25D366] text-white py-3 px-6 rounded-md font-bold hover:bg-opacity-90 transition-colors duration-300 flex items-center justify-center mx-auto gap-3"
+                >
+                    <span dangerouslySetInnerHTML={{ __html: WHATSAPP_SVG }} />
+                    {t.orderConfirmationWhatsApp}
+                </button>
                 <button
                     onClick={() => navigate('home')}
-                    className="bg-brand-primary text-white py-3 px-8 rounded-md font-bold hover:bg-brand-secondary transition-colors duration-300"
+                    className="w-full sm:w-auto bg-brand-primary text-white py-3 px-8 rounded-md font-bold hover:bg-brand-secondary transition-colors duration-300"
                 >
                     {t.goToHomepage}
                 </button>

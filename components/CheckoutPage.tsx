@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import type { CartItem, CustomerDetails } from '../types';
+import { OMAN_GEOGRAPHY } from '../i18n';
 
 interface CheckoutPageProps {
   cartItems: CartItem[];
@@ -7,27 +8,53 @@ interface CheckoutPageProps {
   discount: number;
   total: number;
   t: any;
-  language: string;
+  language: 'ar' | 'en';
   navigate: (page: string, data?: any) => void;
 }
 
 const CheckoutPage: React.FC<CheckoutPageProps> = ({ cartItems, subtotal, discount, total, t, language, navigate }) => {
   const [shippingMethod, setShippingMethod] = useState('home');
-  const [paymentMethod, setPaymentMethod] = useState('card');
-  const [formState, setFormState] = useState<Omit<CustomerDetails, 'country'>>({
+  const [formState, setFormState] = useState({
     firstName: '',
     lastName: '',
     address: '',
-    city: '',
-    region: '',
+    governorate: '',
+    wilayat: '',
     phone: '',
     email: '',
   });
+  const [phoneError, setPhoneError] = useState('');
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { id, value } = e.target;
-    setFormState(prev => ({...prev, [id]: value}));
+    setFormState(prev => {
+      const newState = {...prev, [id]: value};
+      if (id === 'governorate') {
+          newState.wilayat = '';
+      }
+      return newState;
+    });
   };
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/\D/g, '');
+    setFormState(prev => ({...prev, phone: value}));
+    
+    if (value === '') {
+        setPhoneError('');
+        return;
+    }
+
+    if (!/^[79]/.test(value)) {
+        setPhoneError(language === 'ar' ? 'يجب أن يبدأ الرقم بـ 7 أو 9' : 'Number must start with 7 or 9');
+    } else if (value.length !== 8) {
+        setPhoneError(language === 'ar' ? 'يجب أن يتكون الرقم من 8 أرقام' : 'Number must be 8 digits long');
+    } else {
+        setPhoneError('');
+    }
+  };
+
 
   const shippingCost = useMemo(() => {
     if (cartItems.length === 0) return 0;
@@ -38,20 +65,30 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({ cartItems, subtotal, discou
 
   const finalTotal = total + shippingCost;
 
-  const inputStyles = "w-full p-3 bg-white text-brand-text border border-gray-300 rounded-md focus:ring-2 focus:ring-brand-secondary focus:border-transparent outline-none transition";
+  const wilayatsForSelectedGovernorate = useMemo(() => {
+    if (!formState.governorate) return [];
+    const key = formState.governorate as keyof typeof OMAN_GEOGRAPHY.wilayats;
+    return OMAN_GEOGRAPHY.wilayats[key] || [];
+  }, [formState.governorate]);
+
+  const inputStyles = "w-full p-3 bg-white text-brand-text border border-gray-300 rounded-md focus:ring-2 focus:ring-brand-secondary focus:border-transparent outline-none transition disabled:bg-gray-100";
   const labelStyles = `block text-sm font-medium text-gray-700 mb-1 ${language === 'ar' ? 'text-right' : 'text-left'}`;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (formState.phone && phoneError) return;
+
     const customerDetails: CustomerDetails = {
       ...formState,
       country: 'Oman',
+      city: formState.governorate,
+      region: formState.wilayat,
     };
     navigate('payment', { 
       total: finalTotal, 
       shippingCost: shippingCost,
       customerDetails: customerDetails,
-      paymentMethod: paymentMethod,
+      paymentMethod: 'bankTransfer',
     });
   };
 
@@ -104,19 +141,33 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({ cartItems, subtotal, discou
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                   <div>
-                    <label htmlFor="city" className={labelStyles}>{t.checkoutCity} *</label>
-                    <input type="text" id="city" value={formState.city} onChange={handleInputChange} className={inputStyles} required />
+                    <label htmlFor="governorate" className={labelStyles}>{t.checkoutCity} *</label>
+                    <select id="governorate" value={formState.governorate} onChange={handleInputChange} className={inputStyles} required>
+                      <option value="">{language === 'ar' ? 'اختر محافظة' : 'Select a Governorate'}</option>
+                       {OMAN_GEOGRAPHY.governorates[language].map(gov => (
+                          <option key={gov} value={gov}>{gov}</option>
+                       ))}
+                    </select>
                   </div>
                   <div>
-                    <label htmlFor="region" className={labelStyles}>{t.checkoutRegion} *</label>
-                    <input type="text" id="region" value={formState.region} onChange={handleInputChange} className={inputStyles} required />
+                    <label htmlFor="wilayat" className={labelStyles}>{t.checkoutRegion} *</label>
+                    <select id="wilayat" value={formState.wilayat} onChange={handleInputChange} className={inputStyles} required disabled={!formState.governorate}>
+                       <option value="">{language === 'ar' ? 'اختر ولاية' : 'Select a Wilayat'}</option>
+                       {wilayatsForSelectedGovernorate.map(wil => (
+                          <option key={wil} value={wil}>{wil}</option>
+                       ))}
+                    </select>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                   <div>
                     <label htmlFor="phone" className={labelStyles}>{t.checkoutPhone} *</label>
-                    <input type="tel" id="phone" value={formState.phone} onChange={handleInputChange} className={inputStyles} required />
+                     <div className="relative">
+                        <input type="tel" id="phone" value={formState.phone} onChange={handlePhoneChange} className={`${inputStyles} ${language === 'en' ? 'pl-14' : 'pr-14'}`} required maxLength={8} placeholder="7xxxxxxx / 9xxxxxxx" dir="ltr" />
+                        <span className={`absolute inset-y-0 ${language === 'en' ? 'left-0' : 'right-0'} flex items-center px-3 text-gray-500 border-gray-300 bg-gray-50 rounded-l-md ${language === 'en' ? 'border-r' : 'border-l'}`}>{'+968'}</span>
+                     </div>
+                     {phoneError && <p className="text-red-500 text-xs mt-1">{phoneError}</p>}
                   </div>
                   <div>
                     <label htmlFor="email" className={labelStyles}>{t.checkoutEmail} *</label>
@@ -143,7 +194,8 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({ cartItems, subtotal, discou
                   </label>
                    <button 
                     type="submit"
-                    className="w-full bg-brand-primary text-white py-4 mt-6 rounded-md font-bold text-lg hover:bg-brand-secondary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-brand-secondary focus:ring-opacity-50"
+                    disabled={!!phoneError}
+                    className="w-full bg-brand-primary text-white py-4 mt-6 rounded-md font-bold text-lg hover:bg-brand-secondary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-brand-secondary focus:ring-opacity-50 disabled:bg-gray-400 disabled:cursor-not-allowed"
                   >
                     {t.checkoutPlaceOrder}
                   </button>
@@ -204,20 +256,6 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({ cartItems, subtotal, discou
                       <span className="font-semibold text-sm">1.00 {t.currency}</span>
                     </label>
                    </div>
-                </div>
-                
-                <div className="border-t mt-6 pt-6">
-                   <h4 className="font-semibold mb-4 text-gray-800">{t.checkoutPaymentMethod}</h4>
-                   <div className="space-y-3">
-                    <label className="flex items-center p-3 border rounded-md has-[:checked]:bg-blue-50 has-[:checked]:border-brand-secondary transition">
-                      <input type="radio" name="payment" value="card" checked={paymentMethod === 'card'} onChange={(e) => setPaymentMethod(e.target.value)} className="h-4 w-4 text-brand-secondary focus:ring-brand-secondary" />
-                      <span className={`mx-3 text-sm flex-grow`}>{t.paymentMethodCard}</span>
-                    </label>
-                     <label className="flex items-center p-3 border rounded-md has-[:checked]:bg-blue-50 has-[:checked]:border-brand-secondary transition">
-                      <input type="radio" name="payment" value="applepay" checked={paymentMethod === 'applepay'} onChange={(e) => setPaymentMethod(e.target.value)} className="h-4 w-4 text-brand-secondary focus:ring-brand-secondary" />
-                      <span className={`mx-3 text-sm flex-grow`}>{t.paymentMethodApplePay}</span>
-                    </label>
-                   </div> 
                 </div>
 
               </div>

@@ -37,6 +37,38 @@ const Contact: React.FC<ContactProps> = ({ t, language }) => {
   const [selectedCountry, setSelectedCountry] = useState<Country>(countries[0]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const [phone, setPhone] = useState('');
+  const [phoneError, setPhoneError] = useState('');
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/\D/g, ''); // Allow only digits
+    setPhone(value);
+
+    if (selectedCountry.code !== '+968') {
+      setPhoneError('');
+      return;
+    }
+
+    if (value === '') {
+        setPhoneError('');
+        return;
+    }
+
+    if (!/^[79]/.test(value)) {
+        setPhoneError(language === 'ar' ? 'يجب أن يبدأ الرقم بـ 7 أو 9' : 'Number must start with 7 or 9');
+    } else if (value.length !== 8) {
+        setPhoneError(language === 'ar' ? 'يجب أن يتكون الرقم من 8 أرقام' : 'Number must be 8 digits long');
+    } else {
+        setPhoneError('');
+    }
+  };
+
+  useEffect(() => {
+      // Reset phone validation when country changes
+      setPhone('');
+      setPhoneError('');
+  }, [selectedCountry]);
+
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -111,9 +143,14 @@ const Contact: React.FC<ContactProps> = ({ t, language }) => {
                      id="phone" 
                      className="w-full p-3 bg-transparent border-none outline-none"
                      dir="ltr"
+                     value={phone}
+                     onChange={handlePhoneChange}
+                     maxLength={selectedCountry.code === '+968' ? 8 : undefined}
+                     placeholder={selectedCountry.code === '+968' ? '7xxxxxxx / 9xxxxxxx' : ''}
                    />
                 </div>
               </div>
+              {phoneError && <p className="text-red-500 text-xs mt-1 px-1">{phoneError}</p>}
             </div>
 
              <div>
@@ -127,7 +164,8 @@ const Contact: React.FC<ContactProps> = ({ t, language }) => {
             <div>
                 <button 
                   type="submit"
-                  className="w-full bg-brand-primary text-white py-3 px-4 rounded-md hover:bg-brand-secondary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-brand-secondary focus:ring-opacity-50 font-bold"
+                  disabled={!!phoneError}
+                  className="w-full bg-brand-primary text-white py-3 px-4 rounded-md hover:bg-brand-secondary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-brand-secondary focus:ring-opacity-50 font-bold disabled:bg-gray-400 disabled:cursor-not-allowed"
                 >
                   {t.contactSend}
                 </button>

@@ -14,7 +14,7 @@ export const OMAN_FLAG_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0
 export const USA_FLAG_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36"><path fill="#B22234" d="M32 5H0v2H0v2H0v2H0v2h32V5zm0 6H0v2H0v2h32v-4zM0 21h32v-2H0v-2H0v4zm0 6h32v-2H0v-2H0v4z"/><path fill="#3C3B6E" d="M0 5h18v14H0z"/><path fill="#FFF" d="m4 6 1 3h3l-2 2 1 3-3-2-3 2 1-3-2-2h3z m10 0 1 3h3l-2 2 1 3-3-2-3 2 1-3-2-2h3z m-5 3.5 1 3h3l-2 2 1 3-3-2-3 2 1-3-2-2h3z m10 0 1 3h3l-2 2 1 3-3-2-3 2 1-3-2-2h3z m-5 3.5 1 3h3l-2 2 1 3-3-2-3 2 1-3-2-2h3z"/></svg>`;
 export const SAUDI_ARABIA_FLAG_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600"><rect width="900" height="600" fill="#006c35"/><text x="450" y="350" font-family="Arial, sans-serif" font-size="120" fill="#fff" text-anchor="middle">لا إله إلا الله محمد رسول الله</text><path d="M150 450h600l-30 20h-540z m0 30h600v20h-600z" fill="#fff"/></svg>`;
 export const UAE_FLAG_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400"><path fill="#00732f" d="M0 0h800v133.3H0z"/><path d="M0 133.3h800v133.4H0z"/><path fill="#000" d="M0 266.7h800V400H0z"/><path fill="red" d="M0 0h200v400H0z"/></svg>`;
-export const QATAR_FLAG_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 110"><path fill="#fff" d="M0 0h280v110H0z"/><path fill="#8d1b3d" d="M80 0h200v110H80L60 5 80 10l-20 5L80 20l-20 5 20 5-20 5 20 5-20 5 20 5-20 5 20 5-20 5 20 5-20 5 20 5-20 5 20 5-20 5 20 5-20 5 20 5-20 5 20 5-20 5 20 5-20 5 20 5-20 5 20 5-20 5 20 5-20 5 20 5-20 5 20 5-20 5L80 90l-20-5L80 100l-20-5 20 5z"/></svg>`;
+export const QATAR_FLAG_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 110"><path fill="#fff" d="M0 0h280v110H0z"/><path fill="#8d1b3d" d="M80 0h200v110H80L60 5 80 10l-20 5L80 20l-20 5 20 5-20 5 20 5-20 5 20 5-20 5 20 5-20 5 20 5-20 5 20 5-20 5 20 5-20 5 20 5-20 5 20 5-20 5 20 5-20 5 20 5-20 5 20 5-20 5 20 5-20 5 20 5-20 5 20 5-20 5L80 90l-20-5L80 100l-20-5 20 5z"/></svg>`;
 export const KUWAIT_FLAG_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 60"><path d="M0 0h120v20H0z"/><path fill="#007a3d" d="M0 20h120v20H0z"/><path fill="red" d="M0 40h120v20H0z"/><path d="M0 0l30 20v20L0 60z"/></svg>`;
 export const BAHRAIN_FLAG_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 60"><path fill="#ce1126" d="M0 0h100v60H0z"/><path fill="#fff" d="M0 0h40l10 6-10 6 10 6-10 6 10 6-10 6 10 6-10 6 10 6-10 6h-40z"/></svg>`;
 export const INSTAGRAM_SVG = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -27,8 +27,41 @@ export const WHATSAPP_SVG = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 
 </svg>`;
 export const VISA_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#1A1F71" d="M15.34.66h-5.9l-2.67 16.2h6.03c.5 0 .9-.08 1.2-.23.3-.15.55-.38.74-.68.2-.3.34-.67.42-1.08.08-.42.12-.87.12-1.35 0-.6-.1-1.1-.3-1.5-.2-.4-.48-.74-.82-1-.35-.28-.76-.48-1.2-.6.9-.27 1.6-.8 2.1-1.55.5-.75.75-1.65.75-2.7 0-1.1-.3-2.02-.88-2.77-.6-.74-1.4-1.12-2.42-1.12zM12.9 7.3c.2.14.35.35.45.63.1.28.15.62.15 1.02 0 .42-.05.78-.15 1.08-.1.3-.25.54-.45.72-.2.18-.45.28-.75.28h-1.6l1.3-4.5c.2-.7.4-.8.9-.8.34 0 .6.1.8.25zm-.3-4.1c.15.1.26.28.34.52.08.24.12.5.12.8 0 .34-.04.64-.12.88-.08.24-.2.43-.34.55-.15.12-.33.18-.54.18h-1.2L12.1 3c.18-.6.3-.72.8-.72.3 0 .54.05.6.14z"/><path fill="#1A1F71" d="M22.06 13.9c.2-.2.38-.43.52-.68.14-.26.26-.52.34-.8.1-.28.14-.58.14-.9 0-.5-.1-.94-.3-1.32-.2-.4-.5-.72-.9-.95-.38-.23-.84-.35-1.36-.35-.58 0-1.1.1-1.55.3-.45.2-.84.48-1.15.82-.3.34-.54.75-.7 1.2-.17.48-.25.98-.25 1.5s.08 1.02.24 1.5c.16.5.4.92.7 1.25.3.34.67.6 1.1.78.4.18.9.28 1.45.28.46 0 .88-.07 1.25-.22s.68-.35 1-.6zM19.3 12.4c-.1-.2-.15-.42-.15-.65 0-.22.05-.43.15-.62s.22-.36.38-.5c.15-.14.33-.2.52-.2.2 0 .37.07.5.2s.2.3.2.52c0 .24-.04.45-.12.63s-.2.35-.35.5c-.15.15-.32.22-.5.22-.2 0-.38-.07-.53-.22z"/><path fill="#1A1F71" d="M8.2 11.82c0 .85-.13 1.57-.4 2.15-.27.6-.66.9-1.15.9-.2 0-.4-.03-.58-.1-.2-.07-.35-.18-.48-.32l-.63-2.1-1.32 2.3c-.14.24-.32.42-.55.54-.22.12-.5.18-.8.18h-.18c-.4 0-.7-.1-.9-.3-.2-.2-.3-.5-.3-.92L2.5 1.16C2.42.56 2.5 0 3.2 0h2.4c.4 0 .73.12.95.35.23.23.34.55.34.95l-1.8 9.2.02.1c.1.2.25.3.45.3.2 0 .4-.1.6-.2l2.3-3.2c.1-.15.2-.26.3-.35.1-.08.2-.12.3-.12.4 0 .4.4.4 1.1z"/></svg>`;
 
+// 2. OMAN GEOGRAPHY DATA
+// ==========================================
+export const OMAN_GEOGRAPHY = {
+  governorates: {
+    ar: [ "مسقط", "ظفار", "مسندم", "البريمي", "الداخلية", "شمال الباطنة", "جنوب الباطنة", "شمال الشرقية", "جنوب الشرقية", "الظاهرة", "الوسطى" ],
+    en: [ "Muscat", "Dhofar", "Musandam", "Al Buraimi", "Ad Dakhiliyah", "North Al Batinah", "South Al Batinah", "North Ash Sharqiyah", "South Ash Sharqiyah", "Ad Dhahirah", "Al Wusta" ]
+  },
+  wilayats: {
+    "مسقط": ["مسقط", "مطرح", "بوشر", "السيب", "العامرات", "قريات"],
+    "Muscat": ["Muscat", "Muttrah", "Bawshar", "As Seeb", "Al Amarat", "Qurayyat"],
+    "ظفار": ["صلالة", "طاقة", "مرباط", "سدح", "شليم وجزر الحلانيات", "ضلكوت", "رخيوت", "ثمريت", "مقشن", "المزيونة"],
+    "Dhofar": ["Salalah", "Taqah", "Mirbat", "Sadah", "Shalim and the Hallaniyat Islands", "Dhalkut", "Rakhyut", "Thumrait", "Muqshin", "Al-Mazyunah"],
+    "مسندم": ["خصب", "بخا", "دبا البيعة", "مدحاء"],
+    "Musandam": ["Khasab", "Bukha", "Daba Al Bayah", "Madha"],
+    "البريمي": ["البريمي", "محضة", "السنينة"],
+    "Al Buraimi": ["Al Buraimi", "Mahdah", "As-Sunaynah"],
+    "الداخلية": ["نزوى", "بهلاء", "منح", "الحمراء", "أدم", "إزكي", "سمائل", "بدبد"],
+    "Ad Dakhiliyah": ["Nizwa", "Bahla", "Manah", "Al Hamra", "Adam", "Izki", "Samail", "Bidbid"],
+    "شمال الباطنة": ["صحار", "شناص", "لوى", "صحم", "الخابورة", "السويق"],
+    "North Al Batinah": ["Sohar", "Shinas", "Liwa", "Saham", "Al Khaburah", "As Suwayq"],
+    "جنوب الباطنة": ["الرستاق", "العوابي", "نخل", "وادي المعاول", "بركاء", "المصنعة"],
+    "South Al Batinah": ["Rustaq", "Al Awabi", "Nakhal", "Wadi Al Maawil", "Barka", "Al Musanaah"],
+    "شمال الشرقية": ["إبراء", "المضيبي", "بدية", "القابل", "وادي بني خالد", "دماء والطائيين"],
+    "North Ash Sharqiyah": ["Ibra", "Al Mudaybi", "Bidiyah", "Al Qabil", "Wadi Bani Khalid", "Dema Wa Thaieen"],
+    "جنوب الشرقية": ["صور", "الكامل والوافي", "جعلان بني بوحسن", "جعلان بني بوعلي", "مصيرة"],
+    "South Ash Sharqiyah": ["Sur", "Al Kamil W'al Wafi", "Jalan Bani Bu Hassan", "Jalan Bani Bu Ali", "Masirah"],
+    "الظاهرة": ["عبري", "ينقل", "ضنك"],
+    "Ad Dhahirah": ["Ibri", "Yanqul", "Dhank"],
+    "الوسطى": ["هيما", "محوت", "الدقم", "الجازر"],
+    "Al Wusta": ["Haima", "Mahout", "Duqm", "Al Jazer"]
+  }
+};
 
-// 2. TRANSLATIONS
+
+// 3. TRANSLATIONS
 // ==========================================
 
 export const translations = {
@@ -131,8 +164,8 @@ export const translations = {
     checkoutCountry: 'الدولة / المنطقة',
     checkoutStreetAddress: 'عنوان الشارع / الحي',
     checkoutStreetAddressPlaceholder: 'رقم المنزل واسم الشارع / الحي',
-    checkoutCity: 'المدينة',
-    checkoutRegion: 'المنطقة',
+    checkoutCity: 'المحافظة',
+    checkoutRegion: 'الولاية',
     checkoutPhone: 'الهاتف',
     checkoutEmail: 'البريد الإلكتروني',
     checkoutCreateAccount: 'هل تود إنشاء حساب جديد؟',
@@ -147,27 +180,27 @@ export const translations = {
     checkoutShipping: 'الشحن',
     checkoutTotal: 'الإجمالي',
     checkoutPaymentMethod: 'طريقة الدفع',
-    paymentMethodCard: 'بطاقة بنكية',
-    paymentMethodApplePay: 'Apple Pay',
     checkoutShippingHome: 'التوصيل للمنزل',
     checkoutShippingPickup: 'الإستلام من المكتب',
 
     // Payment Page
-    paymentTitle: 'إتمام عملية الدفع',
-    paymentTotal: 'المبلغ الإجمالي للدفع',
-    paymentPayWithCard: 'البطاقة البنكية',
-    paymentApplePay: 'Apple Pay',
-    paymentCardNumber: 'رقم البطاقة',
-    paymentCardHolder: 'اسم صاحب البطاقة',
-    paymentExpiryDate: 'تاريخ الإنتهاء',
-    paymentCVC: 'CVC',
-    paymentPayNow: 'ادفع الآن',
+    paymentTitleBank: 'الدفع عبر التحويل البنكي',
     paymentProcessing: 'جاري معالجة الدفع...',
     paymentWait: 'يرجى الإنتظار، لا تغلق الصفحة.',
-    paymentSuccessful: 'تم الدفع بنجاح!',
-    paymentRedirecting: 'شكراً لطلبك. سيتم تحويلك للصفحة الرئيسية الآن.',
-    paymentApplePayInstruction: 'انقر على الزر أدناه للدفع باستخدام Apple Pay.',
-    invalidCardNumber: 'رقم بطاقة الفيزا غير صالح.',
+    paymentSuccessful: 'تم تأكيد طلبك بنجاح!',
+    paymentRedirecting: 'شكراً لطلبك. سيتم تحويلك لصفحة الفاتورة الآن.',
+    bankTransferInstructions: 'يرجى تحويل المبلغ الإجمالي إلى الحساب التالي وإرفاق إيصال التحويل.',
+    bankTransferBankName: 'التحويل عن طريق بنك مسقط',
+    bankTransferAccountName: 'باسم: فيصل خالد الكندي',
+    bankTransferAccountNumber: 'رقم الحساب: ٦٣٣٧٣٨٣٨٣٨',
+    bankTransferPhoneNumber: 'رقم الهاتف: ٩٩٩٩٩٩٩',
+    bankTransferUploadReceipt: 'إرفاق صورة الإيصال',
+    bankTransferConfirmPayment: 'تأكيد الدفع',
+    bankTransferFileSelected: 'تم اختيار الملف',
+    bankTransferNoFile: 'اختر ملف',
+    bankTransferFileRequired: 'الرجاء إرفاق صورة الإيصال',
+    paymentMethodBankTransfer: 'تحويل بنكي',
+
 
     // Order History & Confirmation
     orderHistoryTitle: 'سجل الطلبات',
@@ -189,6 +222,7 @@ export const translations = {
     shipped: 'تم الشحن',
     delivered: 'تم التوصيل',
     goToHomepage: 'الانتقال الى الصفحة الرئيسية',
+    orderConfirmationWhatsApp: 'اضغط للتواصل على الواتساب لتتبع شحنتك',
   },
   en: {
     brandName: 'Bahi',
@@ -289,8 +323,8 @@ export const translations = {
     checkoutCountry: 'Country / Region',
     checkoutStreetAddress: 'Street address',
     checkoutStreetAddressPlaceholder: 'House number and street name',
-    checkoutCity: 'Town / City',
-    checkoutRegion: 'Region',
+    checkoutCity: 'Governorate',
+    checkoutRegion: 'Wilayat',
     checkoutPhone: 'Phone',
     checkoutEmail: 'Email address',
     checkoutCreateAccount: 'Create an account?',
@@ -305,27 +339,27 @@ export const translations = {
     checkoutShipping: 'Shipping',
     checkoutTotal: 'Total',
     checkoutPaymentMethod: 'Payment Method',
-    paymentMethodCard: 'Bank Card',
-    paymentMethodApplePay: 'Apple Pay',
     checkoutShippingHome: 'Home Delivery',
     checkoutShippingPickup: 'Pickup from Office',
 
     // Payment Page
-    paymentTitle: 'Complete Payment',
-    paymentTotal: 'Total amount to pay',
-    paymentPayWithCard: 'Credit / Debit Card',
-    paymentApplePay: 'Apple Pay',
-    paymentCardNumber: 'Card Number',
-    paymentCardHolder: 'Cardholder Name',
-    paymentExpiryDate: 'Expiry Date',
-    paymentCVC: 'CVC',
-    paymentPayNow: 'Pay Now',
+    paymentTitleBank: 'Payment via Bank Transfer',
     paymentProcessing: 'Processing Payment...',
     paymentWait: 'Please wait, do not close the page.',
-    paymentSuccessful: 'Payment Successful!',
-    paymentRedirecting: 'Thank you for your order. You will now be redirected.',
-    paymentApplePayInstruction: 'Click the button below to pay with Apple Pay.',
-    invalidCardNumber: 'Invalid Visa card number.',
+    paymentSuccessful: 'Your order has been confirmed!',
+    paymentRedirecting: 'Thank you for your order. You will be redirected to the confirmation page.',
+    bankTransferInstructions: 'Please transfer the total amount to the following account and attach the transfer receipt.',
+    bankTransferBankName: 'Transfer via Bank Muscat',
+    bankTransferAccountName: 'Name: Faisal Khalid Al Kindi',
+    bankTransferAccountNumber: 'Account Number: 6337383838',
+    bankTransferPhoneNumber: 'Phone Number: 9999999',
+    bankTransferUploadReceipt: 'Attach Receipt Image',
+    bankTransferConfirmPayment: 'Confirm Payment',
+    bankTransferFileSelected: 'File Selected',
+    bankTransferNoFile: 'Choose File',
+    bankTransferFileRequired: 'Please attach a receipt image',
+    paymentMethodBankTransfer: 'Bank Transfer',
+
 
     // Order History & Confirmation
     orderHistoryTitle: 'Order History',
@@ -347,5 +381,6 @@ export const translations = {
     shipped: 'Shipped',
     delivered: 'Delivered',
     goToHomepage: 'Go to Homepage',
+    orderConfirmationWhatsApp: 'Click to contact us on WhatsApp to track your shipment',
   },
 };
