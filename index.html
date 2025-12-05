@@ -37,8 +37,20 @@
   }
 }
 </script>
+<script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+</script>
 </head>
   <body>
+    <!-- Netlify Form for Database -->
+    <form name="orders" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text" name="orderId" />
+      <input type="text" name="customerName" />
+      <input type="text" name="customerPhone" />
+      <input type="text" name="total" />
+      <textarea name="orderDetails"></textarea>
+    </form>
+    
     <div id="root"></div>
   </body>
 </html>
